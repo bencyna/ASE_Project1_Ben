@@ -48,7 +48,7 @@ public class RouteControllerUnitTests {
     departmentMapping = new HashMap<>();
     HashMap<String, Course> courseMapping = new HashMap<String, Course>();
     courseMapping = new HashMap<String, Course>();
-
+    
     Course testCourse = new Course("Ben", "451 CSB", "4:10-5:40", 50);
 
     testDepartment = new Department("4995", courseMapping, "Christian Lim", 2);

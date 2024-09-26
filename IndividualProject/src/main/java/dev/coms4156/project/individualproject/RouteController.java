@@ -567,10 +567,10 @@ public class RouteController {
       Map<String, Department> departmentMapping;
       departmentMapping = IndividualProjectApplication.myFileDatabase.getDepartmentMapping();
       StringBuilder result = new StringBuilder();
-      
-      // for each department, retrieve the courses and check if the course code is in the department
+
+      // for each department, retrieve the courses and check if the course code is in
+      // the department
       for (Map.Entry<String, Department> entry : departmentMapping.entrySet()) {
-        String key = entry.getKey();
         Department value = entry.getValue();
         Map<String, Course> courses = value.getCourseSelection();
         // if the course code is in the department, append the course to the result
@@ -589,20 +589,55 @@ public class RouteController {
     }
   }
 
-  // /**
-  // * Use the department ID and course code to enrol a student in a course.
-  // *
-  // * @param deptCode the code of the department to retrieve
-  // * @param courseCode the code of the course(s) to retrieve
-  // * @return A response entity indicating the result of the operation.
-  // */
-  // @GetMapping(value = "/enrollStudentInCourse", produces =
-  // MediaType.APPLICATION_JSON_VALUE)
-  // public ResponseEntity<?> enrollStudentInCourse(@RequestParam(value =
-  // "deptCode") String deptCode,
-  // @RequestParam(value = "courseCode") int courseCode) {
+  /**
+   * Use the department ID and course code to enrol a student in a course.
+   *
+   * @param deptCode   the code of the department to retrieve
+   * @param courseCode the code of the course(s) to retrieve
+   * @return A response entity indicating the result of the operation.
+   */
+  @GetMapping(value = "/enrollStudentInCourse", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> enrollStudentInCourse(@RequestParam(value = "deptCode") String deptCode,
+      @RequestParam(value = "courseCode") int courseCode) {
+    try {
+      // get the department
+      boolean doesDepartmentExists = retrieveDepartment(deptCode).getStatusCode() == HttpStatus.OK;
+      Map<String, Department> departmentMapping;
 
-  // }
+      // get the course if the department exists
+      if (doesDepartmentExists) {
+        // check if course exists
+        departmentMapping = IndividualProjectApplication.myFileDatabase.getDepartmentMapping();
+
+        boolean doesCourseExists;
+        doesCourseExists = retrieveCourse(deptCode, courseCode).getStatusCode() == HttpStatus.OK;
+        if (doesCourseExists) {
+          // check if course is full
+          Map<String, Course> coursesMapping;
+          coursesMapping = departmentMapping.get(deptCode).getCourseSelection();
+
+          Course requestedCourse = coursesMapping.get(Integer.toString(courseCode));
+          if (requestedCourse.isCourseFull()) {
+            return new ResponseEntity<>("Course is full", HttpStatus.BAD_REQUEST);
+          }
+          // enroll the student in the course
+          boolean isStudentEnrolled = requestedCourse.enrollStudent();
+          if (isStudentEnrolled) {
+            return new ResponseEntity<>("Student has been enrolled.", HttpStatus.OK);
+          } else {
+            return new ResponseEntity<>("Student has not been enrolled.", HttpStatus.BAD_REQUEST);
+          }
+        } else {
+          return new ResponseEntity<>("Course Not Found.", HttpStatus.NOT_FOUND);
+        }
+
+      } else {
+        return new ResponseEntity<>("Department Not Found.", HttpStatus.NOT_FOUND);
+      }
+    } catch (Exception e) {
+      return handleException(e);
+    }
+  }
 
   private ResponseEntity<?> handleException(Exception e) {
     System.out.println(e.toString());

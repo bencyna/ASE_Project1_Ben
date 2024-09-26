@@ -37,8 +37,6 @@ public class RouteControllerUnitTests {
   public static Department testDepartment;
   public static MyFileDatabase testDatabase;
 
-
-
   /**
    * Test case setup.
    */
@@ -96,14 +94,17 @@ public class RouteControllerUnitTests {
   public void retrieveDepartment() throws Exception {
     ResponseEntity<?> response = testRouteController.retrieveDepartment("COMS");
     assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals("COMS 3827: \n" + "Instructor: Daniel Rubenstein; Location: 207 Math; Time: 10:10-11:25\n"
+    assertEquals("COMS 3827: \n" + "Instructor: Daniel Rubenstein; "
+        + "Location: 207 Math; Time: 10:10-11:25\n"
         + "COMS 1004: \n" + "Instructor: Adam Cannon; Location: 417 IAB; Time: 11:40-12:55\n"
-        + "COMS 3203: \n" + "Instructor: Ansaf Salleb-Aouissi; Location: 301 URIS; Time: 10:10-11:25\n"
+        + "COMS 3203: \n" + "Instructor: Ansaf Salleb-Aouissi; Location: 301 URIS; "
+        + "Time: 10:10-11:25\n"
         + "COMS 4156: \n" + "Instructor: Gail Kaiser; Location: 501 NWC; Time: 10:10-11:25\n"
         + "COMS 3157: \n" + "Instructor: Jae Lee; Location: 417 IAB; Time: 4:10-5:25\n"
         + "COMS 3134: \n" + "Instructor: Brian Borowski; Location: 301 URIS; Time: 4:10-5:25\n"
         + "COMS 3251: \n" + "Instructor: Tony Dear; Location: 402 CHANDLER; Time: 1:10-3:40\n"
-        + "COMS 3261: \n" + "Instructor: Josh Alman; Location: 417 IAB; Time: 2:40-3:55\n", response.getBody()); 
+        + "COMS 3261: \n" + "Instructor: Josh Alman; Location: 417 IAB; Time: 2:40-3:55\n",
+        response.getBody());
   }
 
   /**
@@ -217,22 +218,23 @@ public class RouteControllerUnitTests {
     assertEquals("Department Not Found", response.getBody());
   }
 
-
   /**
    * Test case for the retrieveCourse method in the RouteController class.
    *
    * @throws Exception if an error occurs during the test
    */
 
-   @Test
-   public void retrieveCourse() throws Exception {
-     // Call the retrieveCourse method in the RouteController class with
-     // deptCode="COMS" and courseCode="1004" and expect a ResponseEntity with
-     // HttpStatus.OK
-     ResponseEntity<?> response = testRouteController.retrieveCourse("COMS", 1004);
-     assertEquals(HttpStatus.OK, response.getStatusCode());
-     assertEquals("\nInstructor: Adam Cannon; Location: 417 IAB; Time: 11:40-12:55", response.getBody());
-   }
+  @Test
+  public void retrieveCourse() throws Exception {
+    // Call the retrieveCourse method in the RouteController class with
+    // deptCode="COMS" and courseCode="1004" and expect a ResponseEntity with
+    // HttpStatus.OK
+    ResponseEntity<?> response = testRouteController.retrieveCourse("COMS", 1004);
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertEquals("\nInstructor: Adam Cannon; Location: 417 IAB; "
+        + "Time: 11:40-12:55", response.getBody());
+  }
+
   /**
    * Test case for the findCourseTime method in the RouteController class.
    *
@@ -250,21 +252,23 @@ public class RouteControllerUnitTests {
   }
 
   /**
-   * Test case for the getCourseLocation method in the RouteController class on success
+   * Test case for the getCourseLocation method in the RouteController class on
+   * success.
+   * 
    *
    *
    * @throws Exception if an error occurs during the test
    */
 
-   @Test
-   public void findCourseLocation() throws Exception {
-     // Call the getCourseLocation method in the RouteController class with
-     // deptCode="COMS" and courseCode="1004" and expect a ResponseEntity with
-     // HttpStatus.OK
-     ResponseEntity<?> response = testRouteController.findCourseLocation("COMS", 1004);
-     assertEquals(HttpStatus.OK, response.getStatusCode());
-     assertEquals("417 IAB is where the course is located.", response.getBody());
-   }
+  @Test
+  public void findCourseLocation() throws Exception {
+    // Call the getCourseLocation method in the RouteController class with
+    // deptCode="COMS" and courseCode="1004" and expect a ResponseEntity with
+    // HttpStatus.OK
+    ResponseEntity<?> response = testRouteController.findCourseLocation("COMS", 1004);
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertEquals("417 IAB is where the course is located.", response.getBody());
+  }
 
   /**
    * Test case for the getCourseLocation method in the RouteController class on
@@ -284,7 +288,8 @@ public class RouteControllerUnitTests {
   }
 
   /**
-   * Test case for the findCourseInstructor method in the RouteController class on fail.
+   * Test case for the findCourseInstructor method in the RouteController class on
+   * fail.
    *
    * @throws Exception if an error occurs during the test
    */
@@ -317,7 +322,8 @@ public class RouteControllerUnitTests {
   }
 
   /**
-   * Test case for the setEnrollmentCount method in the RouteController class on fail.
+   * Test case for the setEnrollmentCount method in the RouteController class on
+   * fail.
    * 
    *
    * @throws Exception if an error occurs during the test
@@ -335,7 +341,8 @@ public class RouteControllerUnitTests {
   }
 
   /**
-   * Test case for the setEnrollmentCount method in the RouteController class on fail.
+   * Test case for the setEnrollmentCount method in the RouteController class on
+   * fail.
    *
    * @throws Exception if an error occurs during the test
    */
@@ -352,7 +359,8 @@ public class RouteControllerUnitTests {
   }
 
   /**
-   * Test case for the changeCourseTime method in the RouteController class on fail.
+   * Test case for the changeCourseTime method in the RouteController class on
+   * fail.
    *
    * @throws Exception if an error occurs during the test
    */
@@ -369,7 +377,8 @@ public class RouteControllerUnitTests {
   }
 
   /**
-   * Test case for the changeCourseTeacher method in the RouteController class on fail.
+   * Test case for the changeCourseTeacher method in the RouteController class on
+   * fail.
    *
    * @throws Exception if an error occurs during the test
    */
@@ -404,7 +413,8 @@ public class RouteControllerUnitTests {
   }
 
   /**
-   * Test case for the changeCourseLocation method in the RouteController class on fail.
+   * Test case for the changeCourseLocation method in the RouteController class on
+   * fail.
    *
    * @throws Exception if an error occurs during the test
    */
@@ -419,9 +429,10 @@ public class RouteControllerUnitTests {
     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     assertEquals("Course Not Found", response.getBody());
   }
-  
+
   /**
-   * Test case for the retrieveCourses method in the RouteController class for one class.
+   * Test case for the retrieveCourses method in the RouteController class for one
+   * class.
    *
    * @throws Exception if an error occurs during the test
    */
@@ -430,19 +441,64 @@ public class RouteControllerUnitTests {
   public void retrieveCourses() throws Exception {
     ResponseEntity<?> response = testRouteController.retrieveCourses("4040");
     assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals("\nInstructor: James C Hill; Location: 214 PUP; Time: 4:10-5:25", response.getBody());
+    assertEquals("\nInstructor: James C Hill; "
+        + "Location: 214 PUP; Time: 4:10-5:25", response.getBody());
   }
 
-    /**
-   * Test case for the retrieveCourses method in the RouteController class for no classes.
+  /**
+   * Test case for the retrieveCourses method in the RouteController class for no
+   * classes.
    *
    * @throws Exception if an error occurs during the test
    */
 
-   @Test
-   public void retrieveCoursesNoClass() throws Exception {
-     ResponseEntity<?> response = testRouteController.retrieveCourses("5000");
-     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-     assertEquals("Course Not Found", response.getBody());
-   }
+  @Test
+  public void retrieveCoursesNoClass() throws Exception {
+    ResponseEntity<?> response = testRouteController.retrieveCourses("5000");
+    assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    assertEquals("Course Not Found", response.getBody());
+  }
+
+  /**
+   * Test case for the enrollStudent method in the RouteController class on
+   * success.
+   *
+   * @throws Exception if an error occurs during the test
+   */
+
+  @Test
+  public void enrollStudentInCourseTest() throws Exception {
+    ResponseEntity<?> response = testRouteController.enrollStudentInCourse("COMS", 1004);
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertEquals("Student has been enrolled.", response.getBody());
+  }
+
+  /**
+   * Test case for the enrollStudent method in the RouteController class on fail
+   * department doesn't exist.
+   *
+   * @throws Exception if an error occurs during the test
+   */
+
+  @Test
+  public void enrollStudentInCourseTestFailDept() throws Exception {
+    ResponseEntity<?> response = testRouteController.enrollStudentInCourse("COMSs", 1004);
+    assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    assertEquals("Department Not Found.", response.getBody());
+  }
+
+  /**
+   * Test case for the enrollStudent method in the RouteController class on fail
+   * department doesn't exist.
+   *
+   * @throws Exception if an error occurs during the test
+   */
+
+  @Test
+  public void enrollStudentInCourseTestFailCourse() throws Exception {
+    ResponseEntity<?> response = testRouteController.enrollStudentInCourse("COMS", 1005);
+    assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    assertEquals("Course Not Found.", response.getBody());
+  }
+
 }
